@@ -1,0 +1,96 @@
+:root {
+
+   
+      
+    --morado-claro: #f5f0fa;
+    --morado: #6a1b9a;
+    --morado-suave: #9c27b0;;
+    --texto-oscuro: #3e3e3e;
+  }
+  
+  body {
+    background-color: var(--morado-claro);
+    color: var(--texto-oscuro);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .navbar {
+    background-color: var(--morado);
+  }
+  
+  .navbar-brand, .nav-link {
+    color: white !important;
+  }
+  
+  .hero {
+    background: linear-gradient(135deg, var(--morado) 30%, var(--morado-suave));
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+  }
+  
+  footer {
+    background-color: var(--morado);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .btn-primary {
+    background-color: var(--morado);
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--morado-suave);
+  }
+  
+
+/* Mejora de visibilidad para las pestañas (tabs) del modal */
+.nav-tabs .nav-link {
+    color: var(--morado); /* color inactivo */
+    background-color: #c177cf;
+    border: 1px solid var(--morado-suave);
+    border-bottom: none;
+  }
+  
+  .nav-tabs .nav-link.active {
+    background-color: var(--morado);
+    color: white;
+    border: 1px solid var(--morado);
+    border-bottom: 1px solid white;
+  }
+
+  .btn-primary,
+.btn-success {
+  color: white;
+}
+
+.bg-morado {
+    background-color: var(--morado) !important;
+    color: white;
+  }
+  
+
+  /* Estilo personalizado para los botones */
+.btn-morado {
+    background-color: var(--morado);
+    border-color: var(--morado);
+    color: white;
+  }
+  
+  .btn-morado:hover {
+    background-color: var(--morado-suave);
+    border-color: var(--morado-suave);
+  }
+  
+  
+  
