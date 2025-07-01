@@ -17,7 +17,7 @@ if (!$id_tutoria) {
     exit("Falta id_tutoria");
 }
 
-$stmt = $conn->prepare("DELETE FROM Tutorias WHERE id_tutoria = ?");
+$stmt = $conn->prepare("DELETE FROM tutorias WHERE id_tutoria = ?");
 $ok = $stmt->execute([$id_tutoria]);
 
 echo $ok ? 'ok' : 'error';
