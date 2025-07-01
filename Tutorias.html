@@ -11,11 +11,11 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 fixed-top">
-    <a class="navbar-brand fw-bold text-primary" href="#">Tuto<span style="color: #6f42c1">®ía</span></a>
+  <nav class="navbar navbar-expand-lg shadow-sm px-4 fixed-top bg-morado">
+    <a class="navbar-brand fw-bold" href="#">Tuto<span style="color: var(--morado-suave)">®ía</span></a>
     <div class="ms-auto d-flex align-items-center gap-3">
-      <i class="bi bi-bell fs-4"></i>
-      <i class="bi bi-chat-dots fs-4"></i>
+      <i class="bi bi-bell fs-4 text-white"></i>
+      <i class="bi bi-chat-dots fs-4 text-white"></i>
       <div class="dropdown">
         <img src="https://via.placeholder.com/40" alt="Perfil" class="rounded-circle" style="width: 40px; height: 40px; cursor: pointer;" data-bs-toggle="dropdown" />
         <ul class="dropdown-menu dropdown-menu-end">
@@ -48,73 +48,72 @@
 
     <!-- Publicaciones -->
     <div id="publicaciones">
-      <h3>Publicaciones recientes</h3>
+      <h3 class="mb-4">Publicaciones recientes</h3>
 
-      <!-- Publicación -->
-      <div class="post mb-4 p-3 border rounded bg-white shadow-sm">
-        <h5>¿Necesitas ayuda con matemáticas? ¡Soy tutor de álgebra!</h5>
-        <p>¡Hola! Soy Juan, y me ofrezco como tutor de álgebra. Si necesitas ayuda con tus estudios, no dudes en contactarme.</p>
-        <button class="btn btn-info">Contactar</button>
+      <!-- Publicación 1 -->
+      <div class="post mb-4 p-4 border rounded bg-white shadow-sm">
+        <h5 class="text-morado fw-bold">¿Necesitás ayuda con matemáticas? ¡Soy tutor de álgebra!</h5>
+        <p>¡Hola! Soy Juan, y me ofrezco como tutor de álgebra. Si necesitás ayuda con tus estudios, no dudes en contactarme.</p>
+        <button class="btn btn-morado mb-3">Contactar</button>
 
         <!-- Botones interacción -->
-        <div class="mt-2">
-          <button class="btn btn-outline-primary btn-like" onclick="likePost(this)">
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-outline-morado btn-like" onclick="likePost(this)">
             <span class="heart">♥</span> Me gusta
           </button>
-          <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#comentarios1">Ver comentarios</button>
+          <button class="btn btn-outline-morado" data-bs-toggle="collapse" data-bs-target="#comentarios1">Ver comentarios</button>
         </div>
 
         <!-- Comentarios -->
         <div class="collapse mt-3" id="comentarios1">
-          <div class="card card-body">
-            <textarea class="form-control mb-2" placeholder="Escribe un comentario..." rows="2"></textarea>
-            <button class="btn btn-success w-100">Comentar</button>
+          <div class="card card-body bg-morado-claro">
+            <textarea class="form-control mb-2" placeholder="Escribí un comentario..." rows="2"></textarea>
+            <button class="btn btn-morado w-100">Comentar</button>
             <div class="mt-2">
-              <p><strong>Juan</strong>: ¡Genial! Estoy interesado en aprender álgebra.</p>
+              <p class="text-muted"><strong>Juan</strong>: ¡Genial! Estoy interesado en aprender álgebra.</p>
             </div>
           </div>
         </div>
 
         <!-- Etiquetas -->
-        <div class="mt-2">
-          <span class="badge bg-primary">#Matemáticas</span>
-          <span class="badge bg-secondary">#Tutoría</span>
+        <div class="mt-3">
+          <span class="badge bg-morado">#Matemáticas</span>
+          <span class="badge bg-morado-suave">#Tutoría</span>
         </div>
       </div>
-      <!-- Nueva Publicación -->
-<div class="post mb-4 p-3 border rounded bg-white shadow-sm">
-    <h5>Busco tutor de física para nivel universitario</h5>
-    <p>Hola, estoy buscando ayuda con mecánica clásica. Si tienes experiencia enseñando física, ¡contáctame!</p>
-    <button class="btn btn-info">Contactar</button>
 
-    <!-- Botones de interacción -->
-    <div class="mt-2">
-        <button class="btn btn-outline-primary btn-like" onclick="likePost(this)">
+      <!-- Publicación 2 -->
+      <div class="post mb-4 p-4 border rounded bg-white shadow-sm">
+        <h5 class="text-morado fw-bold">Busco tutor de física para nivel universitario</h5>
+        <p>Hola, estoy buscando ayuda con mecánica clásica. Si tenés experiencia enseñando física, ¡contactame!</p>
+        <button class="btn btn-morado mb-3">Contactar</button>
+
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-outline-morado btn-like" onclick="likePost(this)">
             <span class="heart">♥</span> Me gusta
-        </button>
-        <button class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#comentarios2">Ver comentarios</button>
-    </div>
-
-    <!-- Comentarios -->
-    <div class="collapse mt-3" id="comentarios2">
-        <div class="card card-body">
-            <textarea class="form-control mb-2" placeholder="Escribe un comentario..." rows="2"></textarea>
-            <button class="btn btn-success w-100">Comentar</button>
-            <div class="mt-2">
-                <p><strong>Pedro</strong>: ¡Yo te puedo ayudar con física! Escríbeme.</p>
-            </div>
+          </button>
+          <button class="btn btn-outline-morado" data-bs-toggle="collapse" data-bs-target="#comentarios2">Ver comentarios</button>
         </div>
-    </div>
 
-    <!-- Etiquetas -->
-    <div class="mt-2">
-        <span class="badge bg-primary">#Física</span>
-        <span class="badge bg-secondary">#Tutoría</span>
-    </div>
-</div>
+        <!-- Comentarios -->
+        <div class="collapse mt-3" id="comentarios2">
+          <div class="card card-body bg-morado-claro">
+            <textarea class="form-control mb-2" placeholder="Escribí un comentario..." rows="2"></textarea>
+            <button class="btn btn-morado w-100">Comentar</button>
+            <div class="mt-2">
+              <p class="text-muted"><strong>Pedro</strong>: ¡Yo te puedo ayudar con física! Escribime.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Etiquetas -->
+        <div class="mt-3">
+          <span class="badge bg-morado">#Física</span>
+          <span class="badge bg-morado-suave">#Tutoría</span>
+        </div>
+      </div>
     </div>
   </div>
-  
 
   <script src="Tutorias.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

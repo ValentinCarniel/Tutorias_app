@@ -1,0 +1,121 @@
+:root {
+  --morado-claro: #f5f0fa;
+  --morado: #6a1b9a;
+  --morado-suave: #9c27b0;
+  --texto-oscuro: #3e3e3e;
+}
+
+/* General */
+body {
+  background-color: var(--morado-claro);
+  color: var(--texto-oscuro);
+  font-family: 'Segoe UI', sans-serif;
+  margin-top: 70px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--morado);
+  color: white;
+}
+.navbar-brand {
+  font-weight: bold;
+  color: white !important;
+}
+.navbar-brand span {
+  color: var(--morado-suave) !important;
+}
+.navbar .bi {
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: white;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  height: 100vh;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.sidebar a {
+  color: var(--texto-oscuro);
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.sidebar a:hover {
+  background-color: var(--morado-claro);
+}
+
+/* Botones */
+.btn-morado {
+  background-color: var(--morado);
+  border: none;
+  color: white;
+  border-radius: 8px;
+}
+.btn-morado:hover {
+  background-color: var(--morado-suave);
+}
+.bg-morado {
+  background-color: var(--morado) !important;
+  color: white !important;
+}
+.bg-morado-suave {
+  background-color: var(--morado-suave) !important;
+  color: white !important;
+}
+
+/* Tabla */
+.table thead {
+  background-color: var(--morado-claro);
+}
+.table th {
+  color: var(--morado);
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.modal-header {
+  background-color: var(--morado);
+}
+.modal-title {
+  font-weight: 600;
+}
+.btn-close-white {
+  filter: invert(1);
+}
+
+/* Toast */
+.toast {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .sidebar {
+    display: none;
+  }
+  .content {
+    margin-left: 0;
+  }
+}
+.btn-outline-morado {
+  border: 1px solid var(--morado);
+  color: var(--morado);
+  background-color: transparent;
+}
+.btn-outline-morado:hover {
+  background-color: var(--morado);
+  color: white;
+}
+

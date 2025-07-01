@@ -1,11 +1,39 @@
+:root {
+  --morado-claro: #f5f0fa;
+  --morado: #6a1b9a;
+  --morado-suave: #9c27b0;
+  --texto-oscuro: #3e3e3e;
+  --morado-hover: #7b2cbf;
+}
+
+/* Base */
 body {
-  background-color: #f8f9fa;
+  background-color: var(--morado-claro);
+  color: var(--texto-oscuro);
+  font-family: 'Segoe UI', sans-serif;
   margin-top: 70px;
 }
 
+/* Navbar */
+.navbar {
+  background-color: var(--morado);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+  font-weight: bold;
+  color: white !important;
+}
+.navbar-brand span {
+  color: var(--morado-suave) !important;
+}
+.navbar i {
+  color: white;
+}
+
+/* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #fff;
+  background-color: white;
   height: 100vh;
   position: fixed;
   top: 56px;
@@ -17,53 +45,140 @@ body {
 
 .sidebar a {
   display: block;
-  color: #333;
+  color: var(--texto-oscuro);
   padding: 10px;
   border-radius: 8px;
   text-decoration: none;
   margin-bottom: 10px;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
 .sidebar a:hover {
-  background-color: #f0f0f0;
+  background-color: var(--morado-claro);
 }
 
+/* Contenido */
 .content {
   margin-left: 270px;
   padding: 2rem;
+  max-width: 100%;
+  min-height: 100vh;
 }
 
-.heart {
-  font-size: 18px;
-  transition: color 0.2s;
+.content h1 {
+  margin-top: 80px;
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--morado);
+  word-wrap: break-word;
 }
 
-.liked .heart {
-  color: red !important;
+/* Buscador */
+#searchTutores {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 1px solid var(--morado-suave);
 }
 
-.btn-like.liked {
-  background-color: #6f42c1;
+/* Publicación */
+.post {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.post h5 {
+  color: var(--morado);
+  font-weight: 600;
+}
+
+/* Botones */
+.btn-morado {
+  background-color: var(--morado);
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+.btn-morado:hover {
+  background-color: var(--morado-suave);
+}
+
+.btn-outline-morado {
+  border: 1px solid var(--morado);
+  color: var(--morado);
+  background: transparent;
+  border-radius: 6px;
+}
+.btn-outline-morado:hover {
+  background-color: var(--morado);
   color: white;
 }
 
-.content {
-    margin-left: 270px;
-    padding: 2rem;
-    max-width: 100%;
-    min-height: 100vh;
+/* Me gusta */
+.btn-like {
+  transition: background-color 0.2s ease;
 }
-.content h1 {
-    margin-top: 80px; /* Ajusta según necesidad */
-    font-size: 2.5rem;
-    text-align: center;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+.heart {
+  font-size: 18px;
+  margin-right: 5px;
+  color: black;
 }
-#searchTutores {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+.btn-like.liked {
+  background-color: var(--morado);
+  color: white;
+}
+.btn-like.liked .heart {
+  color: red !important;
 }
 
+/* Comentarios */
+.card-body {
+  background-color: var(--morado-claro);
+  border-radius: 8px;
+}
+
+textarea.form-control {
+  border-radius: 6px;
+}
+
+/* Etiquetas */
+.badge {
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+}
+.bg-morado {
+  background-color: var(--morado) !important;
+  color: white !important;
+}
+.bg-morado-suave {
+  background-color: var(--morado-suave) !important;
+  color: white !important;
+}
+.bg-morado-claro {
+  background-color: var(--morado-claro) !important;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .hero {
+    padding: 60px 10px;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  #searchTutores {
+    max-width: 100%;
+  }
+}

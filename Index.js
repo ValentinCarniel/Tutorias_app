@@ -1,26 +1,120 @@
-// Manejo del formulario de login
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-  
-    if (email === 'admin@tuto.com' && password === '123456') {
-      alert('¡Bienvenido/a!');
-      bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+// ==============================
+// 🟣 Hero typing animation
+// ==============================
+document.addEventListener("DOMContentLoaded", () => {
+  iniciarEscrituraHero();
+  cargarProvincias();
+});
+
+function iniciarEscrituraHero() {
+  const frases = ["Aprendé.", "Enseñá.", "Conectá."];
+  const typingElement = document.getElementById("typingText");
+  let fraseIndex = 0;
+  let charIndex = 0;
+  let borrando = false;
+
+  function escribir() {
+    const actual = frases[fraseIndex];
+    typingElement.textContent = actual.substring(0, charIndex);
+
+    if (!borrando && charIndex < actual.length) {
+      charIndex++;
+      setTimeout(escribir, 80);
+    } else if (borrando && charIndex > 0) {
+      charIndex--;
+      setTimeout(escribir, 40);
     } else {
-      alert('Credenciales incorrectas.');
+      borrando = !borrando;
+      if (!borrando) fraseIndex = (fraseIndex + 1) % frases.length;
+      setTimeout(escribir, 1000);
     }
-  });
-  
-  // Manejo del formulario de registro
-  document.getElementById('registerForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const name = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
-  
-    // Simulación de registro exitoso
-    alert(`¡Gracias por registrarte, ${name}!`);
-    bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
-  });
-  
+  }
+
+  escribir();
+}
+
+// ==============================
+// 🔵 Ubicación: Provincias + Departamentos + Ciudades
+// ==============================
+function cargarProvincias() {
+  fetch("https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre")
+    .then(res => res.json())
+    .then(data => {
+      const select = document.getElementById("regProvincia");
+      data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      data.provincias.forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.nombre;
+        option.textContent = p.nombre;
+        select.appendChild(option);
+      });
+    });
+}
+
+document.getElementById("regProvincia").addEventListener("change", function () {
+  const provincia = this.value;
+  const depSelect = document.getElementById("regDepartamento");
+  const ciudadSelect = document.getElementById("regCiudad");
+
+  // Resetear selects
+  depSelect.innerHTML = '<option value="">Seleccioná tu departamento</option>';
+  ciudadSelect.innerHTML = '<option value="">Seleccioná tu ciudad</option>';
+  depSelect.disabled = true;
+  ciudadSelect.disabled = true;
+
+  fetch(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${provincia}&campos=id,nombre&max=1000`)
+    .then(res => res.json())
+    .then(data => {
+      depSelect.innerHTML += data.departamentos.map(dep =>
+        `<option value="${dep.nombre}">${dep.nombre}</option>`
+      ).join('');
+      depSelect.disabled = false;
+    });
+});
+
+document.getElementById("regDepartamento").addEventListener("change", function () {
+  const provincia = document.getElementById("regProvincia").value;
+  const departamento = this.value;
+  const ciudadSelect = document.getElementById("regCiudad");
+
+  ciudadSelect.innerHTML = '<option>Cargando ciudades...</option>';
+  ciudadSelect.disabled = true;
+
+  fetch(`https://apis.datos.gob.ar/georef/api/localidades?provincia=${provincia}&departamento=${departamento}&campos=id,nombre&max=1000`)
+    .then(res => res.json())
+    .then(data => {
+      ciudadSelect.innerHTML = data.localidades.map(loc =>
+        `<option value="${loc.nombre}">${loc.nombre}</option>`
+      ).join('');
+      ciudadSelect.disabled = false;
+    })
+    .catch(() => {
+      ciudadSelect.innerHTML = '<option>Error al cargar ciudades</option>';
+    });
+});
+
+// ==============================
+// 🟠 Login form validation
+// ==============================
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  if (email === "admin@tuto.com" && password === "123456") {
+    alert("¡Bienvenido/a!");
+    bootstrap.Modal.getInstance(document.getElementById("authModal")).hide();
+  } else {
+    alert("Credenciales incorrectas.");
+  }
+});
+
+// ==============================
+// 🟣 Registro form validación básica
+// ==============================
+document.getElementById("registerForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const nombre = document.getElementById("regNombre").value.trim();
+  alert(`¡Gracias por registrarte, ${nombre}!`);
+  bootstrap.Modal.getInstance(document.getElementById("authModal")).hide();
+});
