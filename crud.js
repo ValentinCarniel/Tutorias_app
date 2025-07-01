@@ -30,10 +30,10 @@ function cargarTutorias() {
             <td>$${parseFloat(t.precio).toFixed(2)}</td>
             <td>${new Date(t.fecha_publicacion).toLocaleDateString()}</td>
             <td>
-              <button class="btn btn-sm btn-warning me-1" onclick='editarTutoria(${JSON.stringify(
+              <button class="btn btn-sm btn-outline-morado me-1" onclick='editarTutoria(${JSON.stringify(
                 t
               )})'>Editar</button>
-              <button class="btn btn-sm btn-danger" onclick="eliminarTutoria(${
+              <button class="btn btn-sm btn-outline-danger" onclick="eliminarTutoria(${
                 t.id_tutoria
               })">Eliminar</button>
             </td>

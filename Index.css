@@ -1,96 +1,200 @@
 :root {
+  --morado-claro: #f5f0fa;
+  --morado: #6a1b9a;
+  --morado-suave: #9c27b0;
+  --texto-oscuro: #3e3e3e;
+}
 
-   
-      
-    --morado-claro: #f5f0fa;
-    --morado: #6a1b9a;
-    --morado-suave: #9c27b0;;
-    --texto-oscuro: #3e3e3e;
-  }
-  
-  body {
-    background-color: var(--morado-claro);
-    color: var(--texto-oscuro);
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .navbar {
-    background-color: var(--morado);
-  }
-  
-  .navbar-brand, .nav-link {
-    color: white !important;
-  }
-  
-  .hero {
-    background: linear-gradient(135deg, var(--morado) 30%, var(--morado-suave));
-    color: white;
-    padding: 80px 20px;
-    text-align: center;
-  }
-  
-  .card {
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.03);
-  }
-  
-  footer {
-    background-color: var(--morado);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-  }
-  
-  .btn-primary {
-    background-color: var(--morado);
-    border: none;
-  }
-  
-  .btn-primary:hover {
-    background-color: var(--morado-suave);
-  }
-  
+body {
+  background-color: var(--morado-claro);
+  color: var(--texto-oscuro);
+  font-family: 'Segoe UI', sans-serif;
+}
 
-/* Mejora de visibilidad para las pestañas (tabs) del modal */
+/* Navbar */
+.navbar {
+  background-color: var(--morado);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  margin: 0 0.5rem;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--morado) 30%, var(--morado-suave));
+  color: white;
+  min-height: 70vh;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* Cards */
+.card {
+  min-height: 100%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+/* Footer */
+footer {
+  background-color: var(--morado);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Botones */
+.btn-primary,
+.btn-success,
+.btn-morado {
+  background-color: var(--morado);
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-morado:hover {
+  background-color: var(--morado-suave);
+  border-color: var(--morado-suave);
+}
+
+/* Tabs modal */
 .nav-tabs .nav-link {
-    color: var(--morado); /* color inactivo */
-    background-color: #c177cf;
-    border: 1px solid var(--morado-suave);
-    border-bottom: none;
-  }
-  
-  .nav-tabs .nav-link.active {
-    background-color: var(--morado);
-    color: white;
-    border: 1px solid var(--morado);
-    border-bottom: 1px solid white;
-  }
+  color: var(--morado);
+  background-color: #c177cf;
+  border: 1px solid var(--morado-suave);
+  border-bottom: none;
+}
 
-  .btn-primary,
-.btn-success {
+.nav-tabs .nav-link.active {
+  background-color: var(--morado);
+  color: white;
+  border: 1px solid var(--morado);
+  border-bottom: 1px solid white;
+}
+
+/* Fondo del modal */
+.bg-morado {
+  background-color: var(--morado) !important;
   color: white;
 }
 
-.bg-morado {
-    background-color: var(--morado) !important;
-    color: white;
-  }
-  
+/* Modal personalizado */
+.modal-dialog {
+  max-width: 600px;
+  margin: auto;
+}
 
-  /* Estilo personalizado para los botones */
-.btn-morado {
-    background-color: var(--morado);
-    border-color: var(--morado);
-    color: white;
+.modal-content {
+  border-radius: 12px;
+  max-height: 80vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  background-color: var(--morado-claro);
+}
+
+/* Encabezado del modal fijo */
+.modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--morado);
+}
+
+/* Título del modal */
+.modal-title {
+  color: white;
+  font-weight: 600;
+  font-size: 1.3rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Scroll modal */
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--morado-claro);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--morado);
+  border-radius: 5px;
+  border: 2px solid var(--morado-claro);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--morado-suave);
+}
+
+.modal-content {
+  scrollbar-color: var(--morado) var(--morado-claro);
+  scrollbar-width: thin;
+}
+
+/* Formulario */
+.form-control,
+.form-select {
+  border-radius: 8px;
+}
+
+#registerForm {
+  max-width: 550px;
+  padding: 0 1rem;
+  margin: auto;
+}
+
+/* Feedback visual */
+.alert {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animaciones Hero */
+.cursor {
+  display: inline-block;
+  animation: blink 0.8s steps(2, start) infinite;
+  color: white;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .hero {
+    padding: 60px 10px;
   }
-  
-  .btn-morado:hover {
-    background-color: var(--morado-suave);
-    border-color: var(--morado-suave);
+
+  .card {
+    min-height: auto;
   }
-  
-  
-  
+
+  .modal-dialog {
+    margin: 1rem;
+  }
+
+  #registerForm {
+    padding: 0 0.5rem;
+  }
+}
+

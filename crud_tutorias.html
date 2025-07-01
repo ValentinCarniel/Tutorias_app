@@ -1,164 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mis Tutorías - Tuto®ía</title>
-    <link rel="stylesheet" href="Tutorias.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 fixed-top"
-    >
-      <a class="navbar-brand fw-bold text-primary" href="#"
-        >Tuto<span style="color: #6f42c1">®ía</span></a
-      >
-      <div class="ms-auto d-flex align-items-center gap-3">
-        <i class="bi bi-bell fs-4"></i>
-        <i class="bi bi-chat-dots fs-4"></i>
-        <div class="dropdown">
-          <!-- Sin imagen para evitar errores -->
-          <button
-            class="btn btn-light rounded-circle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            style="width: 40px; height: 40px"
-          >
-            <i class="bi bi-person-circle fs-3"></i>
-          </button>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
-            <li><a class="dropdown-item" href="#">Configuración</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item text-danger" href="#">Cerrar sesión</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis Tutorías - Tuto®ía</title>
+  <link rel="stylesheet" href="Tutorias.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+<body>
 
-    <!-- Sidebar lateral -->
-    <div class="sidebar">
-      <a href="#"><i class="bi bi-person-circle me-2"></i> Mi perfil</a>
-      <a href="#"><i class="bi bi-journal-code me-2"></i> Mis tutorías</a>
-      <a href="#"><i class="bi bi-gear me-2"></i> Configuración</a>
-    </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg shadow-sm px-4 fixed-top bg-morado">
+    <a class="navbar-brand fw-bold" href="#">Tuto<span style="color: var(--morado-suave)">®ía</span></a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <i class="bi bi-bell fs-4 text-white"></i>
+      <i class="bi bi-chat-dots fs-4 text-white"></i>
+      <div class="dropdown">
+       <button class="btn rounded-circle bg-morado text-white shadow" type="button" ...>
+  <i class="bi bi-person-circle fs-4"></i>
+</button>
 
-    <!-- Contenido principal -->
-    <div class="content mt-5 pt-4 px-4">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Gestión de mis tutorías</h2>
-        <button class="btn btn-success" onclick="abrirModalNuevaTutoria()">
-          + Nueva tutoría
-        </button>
-      </div>
-
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>Materia</th>
-              <th>Descripción</th>
-              <th>Precio</th>
-              <th>Fecha</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="tablaTutorias">
-            <!-- Se llenará dinámicamente con JS -->
-          </tbody>
-        </table>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="#">Perfil</a></li>
+          <li><a class="dropdown-item" href="#">Configuración</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item text-danger" href="#">Cerrar sesión</a></li>
+        </ul>
       </div>
     </div>
+  </nav>
 
-    <!-- Modal para crear/editar tutoría -->
-    <div class="modal fade" id="modalTutoria" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form id="formTutoria">
-            <div class="modal-header bg-primary text-white">
-              <h5 class="modal-title">Registrar tutoría</h5>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Cerrar"
-              ></button>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="#"><i class="bi bi-person-circle me-2"></i> Mi perfil</a>
+    <a href="#"><i class="bi bi-journal-code me-2"></i> Mis tutorías</a>
+    <a href="#"><i class="bi bi-gear me-2"></i> Configuración</a>
+  </div>
+
+  <!-- Contenido -->
+  <div class="content mt-5 pt-4 px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="text-morado">Gestión de mis tutorías</h2>
+      <button class="btn btn-morado" onclick="abrirModalNuevaTutoria()">+ Nueva tutoría</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Materia</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaTutorias">
+          <!-- Se llenará dinámicamente con JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalTutoria" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formTutoria">
+          <div class="modal-header bg-morado text-white">
+            <h5 class="modal-title">Registrar tutoría</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="idTutoria" />
+            <div class="mb-3">
+              <label for="idMateria" class="form-label">Materia</label>
+              <select id="idMateria" class="form-select" required></select>
             </div>
-            <div class="modal-body">
-              <input type="hidden" id="idTutoria" />
-              <div class="mb-3">
-                <label for="idMateria" class="form-label">Materia</label>
-                <select id="idMateria" class="form-select" required></select>
-              </div>
-              <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea
-                  id="descripcion"
-                  class="form-control"
-                  rows="3"
-                  required
-                ></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="precio" class="form-label">Precio (AR$)</label>
-                <input
-                  type="number"
-                  id="precio"
-                  class="form-control"
-                  min="0"
-                  step="0.01"
-                  required
-                />
-              </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea id="descripcion" class="form-control" rows="3" required></textarea>
             </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary w-100">
-                Guardar tutoría
-              </button>
+            <div class="mb-3">
+              <label for="precio" class="form-label">Precio (AR$)</label>
+              <input type="number" id="precio" class="form-control" min="0" step="0.01" required />
             </div>
-          </form>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-morado w-100">Guardar tutoría</button>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Toast de éxito -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div
-        id="toastGuardado"
-        class="toast align-items-center text-white bg-success border-0"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="d-flex">
-          <div class="toast-body">Guardado con éxito.</div>
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Cerrar"
-          ></button>
-        </div>
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastGuardado" class="toast align-items-center text-white bg-morado-suave border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">Guardado con éxito.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
       </div>
     </div>
+  </div>
 
-    <script src="crud.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  <script src="crud.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
