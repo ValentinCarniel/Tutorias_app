@@ -1,0 +1,17 @@
+{
+    "name": "hp/tutoria",
+    "autoload": {
+        "psr-4": {
+            "Hp\\Tutoria\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ALGARBE16",
+            "email": "cesaralgarbe93@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
+}

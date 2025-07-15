@@ -1,9 +1,21 @@
 // ==============================
-// 🟣 Hero typing animation
+// 🟣 Hero typing animation + login redirection
 // ==============================
 document.addEventListener("DOMContentLoaded", () => {
   iniciarEscrituraHero();
   cargarProvincias();
+
+  // 🟣 Abrir modal si se accede con #login
+  const modalElement = document.getElementById("authModal");
+  const loginTabButton = document.getElementById("login-tab");
+
+  if (window.location.hash === "#login" && modalElement && loginTabButton) {
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+
+    const loginTab = new bootstrap.Tab(loginTabButton);
+    loginTab.show();
+  }
 });
 
 function iniciarEscrituraHero() {
@@ -56,7 +68,6 @@ document.getElementById("regProvincia").addEventListener("change", function () {
   const depSelect = document.getElementById("regDepartamento");
   const ciudadSelect = document.getElementById("regCiudad");
 
-  // Resetear selects
   depSelect.innerHTML = '<option value="">Seleccioná tu departamento</option>';
   ciudadSelect.innerHTML = '<option value="">Seleccioná tu ciudad</option>';
   depSelect.disabled = true;
@@ -94,27 +105,55 @@ document.getElementById("regDepartamento").addEventListener("change", function (
 });
 
 // ==============================
-// 🟠 Login form validation
+// 🟠 Login demo con feedback visual en el modal
 // ==============================
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
+
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
+  const feedback = document.getElementById("loginFeedback");
 
-  if (email === "admin@tuto.com" && password === "123456") {
-    alert("¡Bienvenido/a!");
-    bootstrap.Modal.getInstance(document.getElementById("authModal")).hide();
+  // Limpiar mensaje previo
+  feedback.classList.add("d-none");
+  feedback.classList.remove("alert", "alert-danger", "alert-success");
+  feedback.textContent = "";
+
+  const loginCorrecto = email === "admin@tuto.com" && password === "123456";
+
+  if (loginCorrecto) {
+    const modal = bootstrap.Modal.getInstance(document.getElementById("authModal"));
+    if (modal) modal.hide();
   } else {
-    alert("Credenciales incorrectas.");
+    feedback.textContent = "Credenciales incorrectas.";
+    feedback.classList.remove("d-none");
+    feedback.classList.add("alert", "alert-danger");
   }
 });
 
 // ==============================
-// 🟣 Registro form validación básica
+// 🟣 Registro demo básico
 // ==============================
 document.getElementById("registerForm").addEventListener("submit", function (e) {
   e.preventDefault();
+
   const nombre = document.getElementById("regNombre").value.trim();
   alert(`¡Gracias por registrarte, ${nombre}!`);
   bootstrap.Modal.getInstance(document.getElementById("authModal")).hide();
 });
+
+//abrirModalRegistroTutor();
+function abrirModalRegistroTutor() {
+  const modalElement = document.getElementById("authModal");
+  const registerTabButton = document.getElementById("register-tab");
+
+  if (modalElement && registerTabButton) {
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+
+    const registerTab = new bootstrap.Tab(registerTabButton);
+    registerTab.show();
+
+    document.getElementById("regRol").value = "tutor"; // ✅ Preseleccionamos el rol
+  }
+}

@@ -21,8 +21,8 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <!-- Enlaces opcionales -->
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li> -->
+          <li class="nav-item"><a class="nav-link" href="./Tutorias.html">Explorar</a></li>
         </ul>
       </div>
     </div>
@@ -58,7 +58,10 @@
             <div class="card-body">
               <h5 class="card-title">¿Querés enseñar?</h5>
               <p class="card-text">Convertite en tutor/a. Compartí lo que sabés, ayudá a otros y generá ingresos mientras lo hacés.</p>
-              <a href="#" class="btn btn-primary">Registrarme como tutor</a>
+             <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#authModal">Registrarme como tutor</a>
+        
+             
+
             </div>
           </div>
         </div>
@@ -172,10 +175,23 @@
 </form>
 </div>
 
-
+  <!-- //modal -->
+   <div class="modal fade" id="registroExitosoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h5 class="modal-title mb-3">🎉 Registro exitoso</h5>
+      <p>Tu cuenta fue creada correctamente. Ya podés iniciar sesión.</p>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="irLoginBtn">Ir al login</button>
+    </div>
+  </div>
+</div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="Index.js"></script>
+  <script src="auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </body>
 </html>
