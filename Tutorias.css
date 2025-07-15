@@ -182,3 +182,84 @@ textarea.form-control {
     max-width: 100%;
   }
 }
+
+/* Tabs del modal */
+.nav-tabs .nav-link {
+  color: var(--morado);
+  background-color: #c177cf;
+  border: 1px solid var(--morado-suave);
+  border-bottom: none;
+}
+.nav-tabs .nav-link.active {
+  background-color: var(--morado);
+  color: white;
+  border: 1px solid var(--morado);
+  border-bottom: 1px solid white;
+}
+
+/* Estilos del modal */
+.modal-dialog {
+  max-width: 600px;
+  margin: auto;
+}
+
+.modal-content {
+  border-radius: 12px;
+  max-height: 80vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  background-color: var(--morado-claro);
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--morado);
+  color: white;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Scrollbar estilizado */
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: var(--morado-claro);
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--morado);
+  border-radius: 5px;
+  border: 2px solid var(--morado-claro);
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--morado-suave);
+}
+.modal-content {
+  scrollbar-color: var(--morado) var(--morado-claro);
+  scrollbar-width: thin;
+}
+
+/* Campos de formulario */
+.form-control,
+.form-select {
+  border-radius: 8px;
+}
+
+/* Formulario centrado */
+#registerForm {
+  max-width: 550px;
+  padding: 0 1rem;
+  margin: auto;
+}
+
+/* Mensaje visual de error o éxito */
+.alert {
+  transition: all 0.3s ease-in-out;
+}

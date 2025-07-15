@@ -5,30 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tutorías - Tuto®ía</title>
   <link rel="stylesheet" href="Tutorias.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg shadow-sm px-4 fixed-top bg-morado">
-    <a class="navbar-brand fw-bold" href="#">Tuto<span style="color: var(--morado-suave)">®ía</span></a>
-    <div class="ms-auto d-flex align-items-center gap-3">
-      <i class="bi bi-bell fs-4 text-white"></i>
-      <i class="bi bi-chat-dots fs-4 text-white"></i>
-      <div class="dropdown">
-        <img src="https://via.placeholder.com/40" alt="Perfil" class="rounded-circle" style="width: 40px; height: 40px; cursor: pointer;" data-bs-toggle="dropdown" />
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Perfil</a></li>
-          <li><a class="dropdown-item" href="#">Configuración</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item text-danger" href="#">Cerrar sesión</a></li>
-        </ul>
-      </div>
+    <a class="navbar-brand fw-bold" href="./Index.html">Tuto<span style="color: var(--morado-suave)">®ía</span></a>
+    <div id="navUsuario" class="ms-auto d-flex align-items-center gap-3">
+      <!-- Se modifica por JS si el usuario no está logueado -->
     </div>
   </nav>
 
-  <!-- Sidebar lateral -->
+  <!-- Sidebar -->
   <div class="sidebar">
     <a href="#"><i class="bi bi-person-circle me-2"></i> Mi perfil</a>
     <a href="#"><i class="bi bi-chat-left-text me-2"></i> Mensajes</a>
@@ -39,83 +29,111 @@
 
   <!-- Contenido principal -->
   <div class="content">
-    <h1 class="text-center mb-4">Muro de Tutoría</h1>
+    <h1 class="text-center mb-4">Buscá lo que necesitás aprender</h1>
 
     <!-- Buscador -->
     <div class="mb-4">
-      <input type="text" class="form-control" id="searchTutores" placeholder="Buscar tutores...">
+      <input type="text" class="form-control" id="searchTutores" placeholder="Buscar contenido...">
     </div>
 
     <!-- Publicaciones -->
     <div id="publicaciones">
       <h3 class="mb-4">Publicaciones recientes</h3>
+    </div>
+  </div>
 
-      <!-- Publicación 1 -->
-      <div class="post mb-4 p-4 border rounded bg-white shadow-sm">
-        <h5 class="text-morado fw-bold">¿Necesitás ayuda con matemáticas? ¡Soy tutor de álgebra!</h5>
-        <p>¡Hola! Soy Juan, y me ofrezco como tutor de álgebra. Si necesitás ayuda con tus estudios, no dudes en contactarme.</p>
-        <button class="btn btn-morado mb-3">Contactar</button>
-
-        <!-- Botones interacción -->
-        <div class="d-flex gap-2 flex-wrap">
-          <button class="btn btn-outline-morado btn-like" onclick="likePost(this)">
-            <span class="heart">♥</span> Me gusta
-          </button>
-          <button class="btn btn-outline-morado" data-bs-toggle="collapse" data-bs-target="#comentarios1">Ver comentarios</button>
+  <!-- Modal de Login / Registro -->
+  <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-morado text-white">
+          <h5 class="modal-title" id="authModalLabel">Bienvenido/a a Tuto®ía</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs mb-3" id="authTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginTab"
+                type="button" role="tab" aria-controls="loginTab" aria-selected="true">Iniciar sesión</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#registerTab"
+                type="button" role="tab" aria-controls="registerTab" aria-selected="false">Registrarse</button>
+            </li>
+          </ul>
 
-        <!-- Comentarios -->
-        <div class="collapse mt-3" id="comentarios1">
-          <div class="card card-body bg-morado-claro">
-            <textarea class="form-control mb-2" placeholder="Escribí un comentario..." rows="2"></textarea>
-            <button class="btn btn-morado w-100">Comentar</button>
-            <div class="mt-2">
-              <p class="text-muted"><strong>Juan</strong>: ¡Genial! Estoy interesado en aprender álgebra.</p>
+          <div class="tab-content" id="authTabsContent">
+            <!-- Login -->
+            <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="login-tab">
+              <form id="loginForm" novalidate>
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="loginEmail" required placeholder="nombre@ejemplo.com" />
+                </div>
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="loginPassword" required placeholder="••••••••" />
+                </div>
+                <div id="loginFeedback" class="alert d-none mt-2" role="alert"></div>
+                <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+              </form>
+            </div>
+
+            <!-- Registro -->
+            <div class="tab-pane fade" id="registerTab" role="tabpanel" aria-labelledby="register-tab">
+              <form id="registerForm" novalidate>
+                <!-- Campos de registro (copiados desde index.html) -->
+                <div class="mb-3"><label for="regNombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="regNombre" required />
+                </div>
+                <div class="mb-3"><label for="regApellido" class="form-label">Apellido</label>
+                  <input type="text" class="form-control" id="regApellido" required />
+                </div>
+                <div class="mb-3"><label for="regEmail" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="regEmail" required />
+                </div>
+                <div class="mb-3"><label for="regPassword" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="regPassword" required />
+                </div>
+                <div class="mb-3"><label for="regNacimiento" class="form-label">Fecha de nacimiento</label>
+                  <input type="date" class="form-control" id="regNacimiento" required />
+                </div>
+                <div class="mb-3"><label for="regRol" class="form-label">Rol</label>
+                  <select id="regRol" class="form-select" required>
+                    <option value="">Seleccioná tu rol</option>
+                    <option value="tutor">Tutor/a</option>
+                    <option value="alumno">Alumno/a</option>
+                  </select>
+                </div>
+                <div class="mb-3"><label for="regPais" class="form-label">País</label>
+                  <input type="text" class="form-control" id="regPais" value="Argentina" disabled />
+                </div>
+                <div class="mb-3"><label for="regProvincia" class="form-label">Provincia</label>
+                  <select id="regProvincia" class="form-select" required></select>
+                </div>
+                <div class="mb-3"><label for="regDepartamento" class="form-label">Departamento</label>
+                  <select id="regDepartamento" class="form-select" required disabled></select>
+                </div>
+                <div class="mb-3"><label for="regCiudad" class="form-label">Ciudad</label>
+                  <select id="regCiudad" class="form-select" required disabled></select>
+                </div>
+                <button type="submit" class="btn btn-morado w-100">Registrarse</button>
+              </form>
             </div>
           </div>
-        </div>
-
-        <!-- Etiquetas -->
-        <div class="mt-3">
-          <span class="badge bg-morado">#Matemáticas</span>
-          <span class="badge bg-morado-suave">#Tutoría</span>
-        </div>
-      </div>
-
-      <!-- Publicación 2 -->
-      <div class="post mb-4 p-4 border rounded bg-white shadow-sm">
-        <h5 class="text-morado fw-bold">Busco tutor de física para nivel universitario</h5>
-        <p>Hola, estoy buscando ayuda con mecánica clásica. Si tenés experiencia enseñando física, ¡contactame!</p>
-        <button class="btn btn-morado mb-3">Contactar</button>
-
-        <div class="d-flex gap-2 flex-wrap">
-          <button class="btn btn-outline-morado btn-like" onclick="likePost(this)">
-            <span class="heart">♥</span> Me gusta
-          </button>
-          <button class="btn btn-outline-morado" data-bs-toggle="collapse" data-bs-target="#comentarios2">Ver comentarios</button>
-        </div>
-
-        <!-- Comentarios -->
-        <div class="collapse mt-3" id="comentarios2">
-          <div class="card card-body bg-morado-claro">
-            <textarea class="form-control mb-2" placeholder="Escribí un comentario..." rows="2"></textarea>
-            <button class="btn btn-morado w-100">Comentar</button>
-            <div class="mt-2">
-              <p class="text-muted"><strong>Pedro</strong>: ¡Yo te puedo ayudar con física! Escribime.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Etiquetas -->
-        <div class="mt-3">
-          <span class="badge bg-morado">#Física</span>
-          <span class="badge bg-morado-suave">#Tutoría</span>
         </div>
       </div>
     </div>
   </div>
 
+
+
+
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="auth.js"></script>
   <script src="Tutorias.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
