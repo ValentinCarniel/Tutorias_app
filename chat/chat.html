@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Interno</title>
+  <link rel="stylesheet" href="/chat/chat.css">
+  <link rel="stylesheet" href="/Tutorias.css">
+  <style>
+    .chat-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+    .chat-header {
+      padding: 15px;
+      background: var(--morado);
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: var(--morado-claro);
+    }
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    .chat-input button {
+      padding: 10px 20px;
+      background-color: var(--morado);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background-color: var(--morado-suave);
+    }
+    .mensaje {
+      margin-bottom: 12px;
+      max-width: 60%;
+      padding: 10px 15px;
+      border-radius: 12px;
+      clear: both;
+    }
+    .mensaje.tutor {
+      background-color: #f0dcf9;
+      align-self: flex-start;
+    }
+    .mensaje.estudiante {
+      background-color: #d1c4e9;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header" id="nombreUsuario">Cargando conversación...</div>
+    <div class="chat-messages" id="chat-box">
+      <!-- Mensajes simulados -->
+    </div>
+    <div class="chat-input">
+      <input type="text" id="mensajeInput" placeholder="Escribí tu mensaje..." />
+      <button onclick="enviarMensaje()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const usuario = urlParams.get('usuario') || 'Usuario';
+    const nombreUsuario = usuario.charAt(0).toUpperCase() + usuario.slice(1);
+    document.getElementById("nombreUsuario").textContent = `Conversación con ${nombreUsuario}`;
+
+    const chatBox = document.getElementById('chat-box');
+
+    // Mensajes de prueba (pueden reemplazarse con fetch PHP + BD)
+    const mensajes = [
+      { texto: `Hola ${nombreUsuario}, ¿en qué te puedo ayudar?`, rol: 'tutor' },
+      { texto: 'Hola, necesito ayuda con funciones cuadráticas.', rol: 'estudiante' }
+    ];
+
+    mensajes.forEach(msg => {
+      const div = document.createElement('div');
+      div.className = `mensaje ${msg.rol}`;
+      div.textContent = msg.texto;
+      chatBox.appendChild(div);
+    });
+
+    function enviarMensaje() {
+      const input = document.getElementById('mensajeInput');
+      const texto = input.value.trim();
+      if (texto !== '') {
+        const nuevoMsg = document.createElement('div');
+        nuevoMsg.className = 'mensaje estudiante';
+        nuevoMsg.textContent = texto;
+        chatBox.appendChild(nuevoMsg);
+        input.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+  </script>
+</body>
+</html>

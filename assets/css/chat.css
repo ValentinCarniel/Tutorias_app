@@ -1,0 +1,99 @@
+ .inbox-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 20px;
+    }
+    .chat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      background-color: var(--morado-claro);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .chat-item:hover {
+      background-color: #e0d2ec;
+    }
+    .chat-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-info strong {
+      color: #6a1b9a;
+    }
+    .chat-preview {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .chat-time {
+      font-size: 0.8rem;
+      color: #999;
+    }
+        .chat-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+    .chat-header {
+      padding: 15px;
+      background: var(--morado);
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: var(--morado-claro);
+    }
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    .chat-input button {
+      padding: 10px 20px;
+      background-color: var(--morado);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background-color: var(--morado-suave);
+    }
+    .mensaje {
+      margin-bottom: 12px;
+      max-width: 60%;
+      padding: 10px 15px;
+      border-radius: 12px;
+      clear: both;
+    }
+    .mensaje.tutor {
+      background-color: #f0dcf9;
+      align-self: flex-start;
+    }
+    .mensaje.estudiante {
+      background-color: #d1c4e9;
+      align-self: flex-end;
+      margin-left: auto;
+    }
