@@ -1,30 +1,31 @@
 <?php
-require 'vendor/autoload.php';
-require 'conn.php';
-
-// =========================
-// 🔵 Configuración CORS
-// =========================
-header("Access-Control-Allow-Origin: *"); // Cambiar '*' por tu dominio en producción
+// Headers CORS
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header('Content-Type: application/json');
 
-// Respuesta para preflight (OPTIONS)
+// Responder al preflight OPTIONS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// =========================
-// 🔵 Procesar POST
-// =========================
-header('Content-Type: application/json');
+// ==============================
+// Requerir dependencias (por si agregás librerías con composer luego)
+$autoload = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoload)) {
+    require $autoload;
+}
 
+require __DIR__ . '/conn.php';
+
+// ==============================
+// Leer JSON enviado desde el frontend
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Campos obligatorios
+// Validar campos
 $campos = ['nombre', 'apellido', 'email', 'password', 'fecha_nacimiento', 'rol', 'provincia', 'departamento', 'ciudad'];
-
 foreach ($campos as $campo) {
     if (empty($data[$campo])) {
         http_response_code(400);
@@ -33,7 +34,6 @@ foreach ($campos as $campo) {
     }
 }
 
-// Limpiar datos
 $nombre = trim($data['nombre']);
 $apellido = trim($data['apellido']);
 $email = trim($data['email']);
@@ -44,13 +44,14 @@ $provincia = $data['provincia'];
 $departamento = $data['departamento'];
 $ciudad = $data['ciudad'];
 
+// ==============================
+// Hashear contraseña
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
+// ==============================
 // Insertar en DB
 try {
-    $stmt = $conn->prepare(
-        'INSERT INTO USUARIO (nombre, apellido, email, password, fecha_nacimiento, rol, provincia, departamento, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    );
+    $stmt = $conn->prepare('INSERT INTO USUARIO (nombre, apellido, email, password, fecha_nacimiento, rol, provincia, departamento, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
     $stmt->execute([$nombre, $apellido, $email, $passwordHash, $fecha_nacimiento, $rol, $provincia, $departamento, $ciudad]);
 
     echo json_encode(['success' => true, 'message' => 'Usuario registrado correctamente.']);
