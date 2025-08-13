@@ -1,0 +1,72 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f0fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.perfil-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.foto img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #6a1b9a;
+  margin-bottom: 10px;
+}
+
+.materias h4,
+.descripcion h4 {
+  margin-top: 25px;
+  color: #6a1b9a;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: #ede7f6;
+  margin: 5px auto;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: #4a148c;
+}
+
+.descripcion p {
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.acciones {
+  margin-top: 30px;
+}
+
+.btn {
+  background-color: #9c27b0;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #7b1fa2;
+}

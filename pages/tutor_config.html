@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Configurar perfil - Tutor</title>
+  <link rel="stylesheet" href="../assets/css/tutor_config.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Configurá tu perfil como tutor</h2>
+
+    <!-- Foto de perfil -->
+    <div class="form-group">
+      <label for="fotoPerfil">Foto de perfil</label>
+      <input type="file" id="fotoPerfil" accept="image/*" />
+      <div class="preview">
+        <img id="previewImg" src="../assets/img/default-avatar.png" alt="Previsualización" />
+      </div>
+    </div>
+
+    <!-- Materias -->
+    <div class="form-group">
+      <label>Materias que podés enseñar</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="Matemática" /> Matemática</label>
+        <label><input type="checkbox" value="Física" /> Física</label>
+        <label><input type="checkbox" value="Lengua" /> Lengua</label>
+        <label><input type="checkbox" value="Programación" /> Programación</label>
+        <label><input type="checkbox" value="Inglés" /> Inglés</label>
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="form-group">
+      <label for="descripcion">Descripción personal</label>
+      <textarea id="descripcion" rows="4" placeholder="Contanos algo sobre vos y cómo podés ayudar a otros estudiantes..."></textarea>
+    </div>
+
+    <!-- Botón -->
+    <div class="form-group">
+      <button id="guardarBtn">
+         <a href="/pages/perfil_tutor.html">sdfd</a>
+      </button>
+     
+    </div>
+  </div>
+
+  <script src="../assets/js/tutor_config.js"></script>
+</body>
+</html>
