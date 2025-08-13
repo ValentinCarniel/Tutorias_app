@@ -10,11 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   listarTutorias(); // Ya existente en tu código
 });
 
-const API_POST = "http://localhost/Tutoria/post_tutoria.php"; // ← correcto
-
-
-
-
+const API_POST = "http://localhost/Tutoria/api/post_tutoria.php"; // ← correcto
 
 // 📱 Render del muro con datos mock (temporal)
 async function listarTutorias() {
@@ -27,20 +23,25 @@ async function listarTutorias() {
   }
 
   try {
-    const res = await fetch("http://localhost/Tutoria/get_tutor_tutoria.php", {
-      headers: {
-        "Authorization": `Bearer ${token}`
+    const res = await fetch(
+      "http://localhost/Tutoria/api/get_tutor_tutoria.php",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
     const data = await res.json();
 
-    if (!data.success) throw new Error(data.error || "Error al obtener publicaciones.");
+    if (!data.success)
+      throw new Error(data.error || "Error al obtener publicaciones.");
 
     muro.innerHTML = "";
 
     data.tutorias.forEach((post, index) => {
-      const refBadges = post.referencias.map(ref => 
-        `<span class="badge bg-morado">#${ref}</span>`).join(" ");
+      const refBadges = post.referencias
+        .map((ref) => `<span class="badge bg-morado">#${ref}</span>`)
+        .join(" ");
 
       muro.innerHTML += `
         <div class="post-tutoria">
@@ -49,9 +50,13 @@ async function listarTutorias() {
             <div class="dropdown">
               <i class="bi bi-three-dots-vertical text-muted" style="cursor:pointer;" data-bs-toggle="dropdown"></i>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick='abrirEdicion(${JSON.stringify(post)})'>Editar</a></li>
+                <li><a class="dropdown-item" href="#" onclick='abrirEdicion(${JSON.stringify(
+                  post
+                )})'>Editar</a></li>
 
-               <li><a class="dropdown-item text-danger" href="#" onclick="eliminarTutoria(${post.id_tutoria})">Eliminar</a></li>
+               <li><a class="dropdown-item text-danger" href="#" onclick="eliminarTutoria(${
+                 post.id_tutoria
+               })">Eliminar</a></li>
 
               </ul>
             </div>
@@ -76,12 +81,10 @@ async function listarTutorias() {
         </div>
       `;
     });
-
   } catch (err) {
     muro.innerHTML = `<div class="alert alert-danger">Error: ${err.message}</div>`;
   }
 }
-
 
 // 📦 Abrir modal de creación
 function abrirModalTutoria() {
@@ -97,86 +100,86 @@ function like(btn) {
 }
 
 // 📝 Publicar tutoría (con token JWT)
-document.getElementById("formTutoria").addEventListener("submit", async function (e) {
-  e.preventDefault();
+document
+  .getElementById("formTutoria")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    Swal.fire({
-      title: 'No estás autenticado',
-      text: 'Iniciá sesión para publicar tutorías.',
-      icon: 'warning',
-      confirmButtonColor: '#ffc107'
-    });
-    return;
-  }
-
-  const titulo = document.getElementById("titulo").value.trim();
-  const descripcion = document.getElementById("descripcion").value.trim();
-  const precio = parseFloat(document.getElementById("precio").value);
-  const referencias = [
-    document.getElementById("ref1").value.trim(),
-    document.getElementById("ref2").value.trim(),
-    document.getElementById("ref3").value.trim()
-  ].filter(ref => ref !== "");
-
-  const idTutoria = document.getElementById("idTutoria").value;
-
-  const payload = {
-  id_tutoria: idTutoria ? parseInt(idTutoria) : undefined,
-  titulo,
-  descripcion,
-  precio,
-  referencias
-};
-
-
-  try {
-   const endpoint = idTutoria ? "update_tutoria.php" : "post_tutoria.php";
-const response = await fetch(`http://localhost/Tutoria/${endpoint}`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`
-  },
-  body: JSON.stringify(payload)
-});
-
-
-    const result = await response.json();
-
-    if (response.ok && result.success) {
-      const modal = bootstrap.Modal.getInstance(document.getElementById("modalTutoria"));
-      modal.hide();
-      document.getElementById("formTutoria").reset();
-
+    const token = localStorage.getItem("token");
+    if (!token) {
       Swal.fire({
-  title: idTutoria ? '¡Tutoría actualizada!' : '¡Tutoría publicada!',
-  text: result.message,
-  icon: 'success',
-  confirmButtonColor: '#6f42c1'
-});
-listarTutorias(); // para refrescar
-
-
-      // listarTutorias(); ← activá cuando tengas backend para listado real
-    } else {
-      throw new Error(result.error || "No se pudo publicar.");
+        title: "No estás autenticado",
+        text: "Iniciá sesión para publicar tutorías.",
+        icon: "warning",
+        confirmButtonColor: "#ffc107",
+      });
+      return;
     }
 
-  } catch (err) {
-    Swal.fire({
-      title: 'Error',
-      text: err.message,
-      icon: 'error',
-      confirmButtonColor: '#dc3545'
-    });
-  }
-});
+    const titulo = document.getElementById("titulo").value.trim();
+    const descripcion = document.getElementById("descripcion").value.trim();
+    const precio = parseFloat(document.getElementById("precio").value);
+    const referencias = [
+      document.getElementById("ref1").value.trim(),
+      document.getElementById("ref2").value.trim(),
+      document.getElementById("ref3").value.trim(),
+    ].filter((ref) => ref !== "");
+
+    const idTutoria = document.getElementById("idTutoria").value;
+
+    const payload = {
+      id_tutoria: idTutoria ? parseInt(idTutoria) : undefined,
+      titulo,
+      descripcion,
+      precio,
+      referencias,
+    };
+
+    try {
+      const endpoint = idTutoria ? "update_tutoria.php" : "post_tutoria.php";
+      const response = await fetch(`http://localhost/Tutoria/api/${endpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("modalTutoria")
+        );
+        modal.hide();
+        document.getElementById("formTutoria").reset();
+
+        Swal.fire({
+          title: idTutoria ? "¡Tutoría actualizada!" : "¡Tutoría publicada!",
+          text: result.message,
+          icon: "success",
+          confirmButtonColor: "#6f42c1",
+        });
+        listarTutorias(); // para refrescar
+
+        // listarTutorias(); ← activá cuando tengas backend para listado real
+      } else {
+        throw new Error(result.error || "No se pudo publicar.");
+      }
+    } catch (err) {
+      Swal.fire({
+        title: "Error",
+        text: err.message,
+        icon: "error",
+        confirmButtonColor: "#dc3545",
+      });
+    }
+  });
 
 function cerrarSesion() {
   localStorage.clear(); // Borra token, nombre, rol, etc.
-  window.location.href = "index.html"; // Reemplazá con la página de inicio o login
+  window.location.href = "/pages/Index.html"; // Reemplazá con la página de inicio o login
 }
 
 // 🗑️ Eliminar tutoría
@@ -184,38 +187,37 @@ async function eliminarTutoria(id) {
   const token = localStorage.getItem("token");
 
   const confirm = await Swal.fire({
-    title: '¿Eliminar tutoría?',
-    text: 'Esta acción no se puede deshacer.',
-    icon: 'warning',
+    title: "¿Eliminar tutoría?",
+    text: "Esta acción no se puede deshacer.",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonText: 'Sí, eliminar',
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#dc3545'
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#dc3545",
   });
 
   if (!confirm.isConfirmed) return;
 
   try {
-    const res = await fetch("http://localhost/Tutoria/delete_tutoria.php", {
+    const res = await fetch("http://localhost/Tutoria/api/delete_tutoria.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ id_tutoria: id })
+      body: JSON.stringify({ id_tutoria: id }),
     });
 
     const data = await res.json();
 
     if (data.success) {
-      Swal.fire('Eliminado', data.message, 'success');
+      Swal.fire("Eliminado", data.message, "success");
       listarTutorias(); // Refresca
     } else {
       throw new Error(data.error || "No se pudo eliminar.");
     }
-
   } catch (err) {
-    Swal.fire('Error', err.message, 'error');
+    Swal.fire("Error", err.message, "error");
   }
 }
 // 📝 Abrir modal de edición

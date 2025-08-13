@@ -1,6 +1,7 @@
-const API_TUTORIAS = "http://localhost/tutoria/get_alumno_tutoria.php";
-const API_VERIFICAR = "http://localhost/TUTORIA/verificar_token.php";
-const LINK_MERCADOPAGO = "https://www.mercadopago.com.ar/checkout/v1/redirect?preference-id=TEST1234";
+const API_TUTORIAS = "http://localhost/Tutoria/api/get_alumno_tutoria.php";
+const API_VERIFICAR = "http://localhost/Tutoria/api/verificar_token.php";
+const LINK_MERCADOPAGO =
+  "https://www.mercadopago.com.ar/checkout/v1/redirect?preference-id=TEST1234";
 
 let logueado = false;
 
@@ -28,7 +29,7 @@ async function verificarSesion() {
 
   try {
     const res = await fetch(API_VERIFICAR, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
 
@@ -90,7 +91,6 @@ function cerrarSesion() {
   window.location.href = "index.html"; // 🔁 Redirige al inicio
 }
 
-
 // 🔍 Mostrar estado de sesión en pantalla (footer)
 function mostrarEstadoSesion() {
   const estado = document.getElementById("estadoSesion");
@@ -125,7 +125,7 @@ document.getElementById("searchTutores").addEventListener("input", function () {
   const query = this.value.toLowerCase();
   const posts = document.querySelectorAll(".post");
 
-  posts.forEach(post => {
+  posts.forEach((post) => {
     const contenido = post.textContent.toLowerCase();
     post.style.display = contenido.includes(query) ? "block" : "none";
   });
@@ -151,10 +151,12 @@ function crearPost(tutoria, index) {
   post.className = "post mb-4 p-4 border rounded bg-white shadow-sm";
 
   const collapseID = `comentarios${index}`;
-  const etiquetasHTML = tutoria.referencias.map((ref, i) => {
-    const clase = i % 2 === 0 ? "bg-morado" : "bg-morado-suave";
-    return `<span class="badge ${clase}">#${ref}</span>`;
-  }).join(" ");
+  const etiquetasHTML = tutoria.referencias
+    .map((ref, i) => {
+      const clase = i % 2 === 0 ? "bg-morado" : "bg-morado-suave";
+      return `<span class="badge ${clase}">#${ref}</span>`;
+    })
+    .join(" ");
 
   post.innerHTML = `
     <h5 class="text-morado fw-bold">${tutoria.titulo}</h5>
@@ -164,21 +166,33 @@ function crearPost(tutoria, index) {
     </p>
     <p>${tutoria.descripcion}</p>
     <p class="fw-bold text-success">💰 ${tutoria.precio} ARS</p>
-    <button class="btn btn-morado mb-3" onclick="${logueado ? `window.location.href='${LINK_MERCADOPAGO}'` : `redirigirALogin()`}">Contactar</button>
+    <button class="btn btn-morado mb-3" onclick="${
+      logueado
+        ? `window.location.href='${LINK_MERCADOPAGO}'`
+        : `redirigirALogin()`
+    }">Contactar</button>
 
     <div class="d-flex gap-2 flex-wrap">
       <button class="btn btn-outline-morado btn-like" onclick="likePost(this)">
         <span class="heart">♥</span> Me gusta
       </button>
-      <button class="btn btn-outline-morado" data-bs-toggle="collapse" data-bs-target="#${collapseID}" onclick="${!logueado ? `redirigirALogin()` : ''}">Ver comentarios</button>
+      <button class="btn btn-outline-morado" data-bs-toggle="collapse" data-bs-target="#${collapseID}" onclick="${
+    !logueado ? `redirigirALogin()` : ""
+  }">Ver comentarios</button>
     </div>
 
     <div class="collapse mt-3" id="${collapseID}">
       <div class="card card-body bg-morado-claro">
-        <textarea class="form-control mb-2" placeholder="Escribí un comentario..." rows="2" ${!logueado ? 'disabled' : ''}></textarea>
-        <button class="btn btn-morado w-100" ${!logueado ? 'onclick="redirigirALogin()"' : ''}>Comentar</button>
+        <textarea class="form-control mb-2" placeholder="Escribí un comentario..." rows="2" ${
+          !logueado ? "disabled" : ""
+        }></textarea>
+        <button class="btn btn-morado w-100" ${
+          !logueado ? 'onclick="redirigirALogin()"' : ""
+        }>Comentar</button>
         <div class="mt-2">
-          <p class="text-muted"><strong>${tutoria.nombre_tutor}</strong>: ¡Gracias por tu interés!</p>
+          <p class="text-muted"><strong>${
+            tutoria.nombre_tutor
+          }</strong>: ¡Gracias por tu interés!</p>
         </div>
       </div>
     </div>
@@ -202,12 +216,16 @@ async function cargarTutorias() {
     }
 
     const contenedor = document.getElementById("publicaciones");
-    const posts = data.tutorias.map((tutoria, index) => crearPost(tutoria, index));
-    posts.forEach(post => contenedor.appendChild(post));
+    const posts = data.tutorias.map((tutoria, index) =>
+      crearPost(tutoria, index)
+    );
+    posts.forEach((post) => contenedor.appendChild(post));
     animarPosts();
   } catch (error) {
     console.error("Error al cargar tutorías:", error.message);
-    document.getElementById("publicaciones").innerHTML += `<p class="text-danger">No se pudieron cargar las tutorías.</p>`;
+    document.getElementById(
+      "publicaciones"
+    ).innerHTML += `<p class="text-danger">No se pudieron cargar las tutorías.</p>`;
   }
 }
 
@@ -217,4 +235,3 @@ document.addEventListener("DOMContentLoaded", async () => {
   mostrarEstadoSesion();
   await cargarTutorias();
 });
-

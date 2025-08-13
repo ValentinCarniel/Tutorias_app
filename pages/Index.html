@@ -3,58 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorías - Tuto®ía</title>
-    <link rel="stylesheet" href="/assets/css/Tutorias.css" />
+    <title>Tuto®ía - Aprende. Enseña. Conectá.</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+    <link href="/assets/css/index.css" rel="stylesheet" />
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg shadow-sm px-4 fixed-top bg-morado">
-      <a class="navbar-brand fw-bold" href="/pages/Index.html"
-        >Tuto<span style="color: var(--morado-suave)">®ía</span></a
-      >
-      <div id="navUsuario" class="ms-auto d-flex align-items-center gap-3">
-        <!-- Se modifica por JS si el usuario no está logueado -->
+    <nav class="navbar navbar-expand-lg shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="#">Tuto®ía</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Enlaces opcionales -->
+            <!-- <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/Tutorias.html">Explorar</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <a href="#"><i class="bi bi-person-circle me-2"></i> Mi perfil</a>
-      <a href="#"><i class="bi bi-chat-left-text me-2"></i> Mensajes</a>
-      <a href="#"><i class="bi bi-bell me-2"></i> Notificaciones</a>
-      <a href="#"><i class="bi bi-journal-code me-2"></i> Materias favoritas</a>
-      <a href="#"><i class="bi bi-gear me-2"></i> Configuración</a>
-    </div>
-
-    <!-- Contenido principal -->
-    <div class="content">
-      <h1 class="text-center mb-4">Buscá lo que necesitás aprender</h1>
-
-      <!-- Buscador -->
-      <div class="mb-4">
-        <input
-          type="text"
-          class="form-control"
-          id="searchTutores"
-          placeholder="Buscar contenido..."
-        />
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="display-5 fw-bold">
+          <span id="typingText"></span><span class="cursor">|</span>
+        </h1>
+        <p class="lead">
+          Una comunidad educativa donde estudiantes ayudan a estudiantes. Sumate
+          como tutor/a o buscá quien te guíe.
+        </p>
+        <a
+          href="#"
+          class="btn btn-light mt-3"
+          data-bs-toggle="modal"
+          data-bs-target="#authModal"
+          >Comenzá ahora</a
+        >
       </div>
+    </section>
 
-      <!-- Publicaciones -->
-      <div id="publicaciones">
-        <h3 class="mb-4">Publicaciones recientes</h3>
+    <!-- Roles -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">¿Necesitás ayuda?</h5>
+                <p class="card-text">
+                  Conectate con estudiantes que ya dominaron el contenido que
+                  estás viendo. Reforzá lo que necesitás.
+                </p>
+                <a href="/pages/Tutorias.html" class="btn btn-primary"
+                  >Buscar tutores</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">¿Querés enseñar?</h5>
+                <p class="card-text">
+                  Convertite en tutor/a. Compartí lo que sabés, ayudá a otros y
+                  generá ingresos mientras lo hacés.
+                </p>
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#authModal"
+                  >Registrarme como tutor</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Modal de Login / Registro -->
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p class="mb-0">© 2025 Tuto®ía. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Modal Login / Registro -->
     <div
       class="modal fade"
       id="authModal"
@@ -64,7 +115,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header bg-morado text-white">
+          <div class="modal-header bg-morado">
             <h5 class="modal-title" id="authModalLabel">
               Bienvenido/a a Tuto®ía
             </h5>
@@ -159,7 +210,6 @@
                 aria-labelledby="register-tab"
               >
                 <form id="registerForm" novalidate>
-                  <!-- Campos de registro (copiados desde index.html) -->
                   <div class="mb-3">
                     <label for="regNombre" class="form-label">Nombre</label>
                     <input
@@ -233,11 +283,9 @@
                     <label for="regProvincia" class="form-label"
                       >Provincia</label
                     >
-                    <select
-                      id="regProvincia"
-                      class="form-select"
-                      required
-                    ></select>
+                    <select id="regProvincia" class="form-select" required>
+                      <option value="">Seleccioná tu provincia</option>
+                    </select>
                   </div>
                   <div class="mb-3">
                     <label for="regDepartamento" class="form-label"
@@ -248,7 +296,9 @@
                       class="form-select"
                       required
                       disabled
-                    ></select>
+                    >
+                      <option value="">Seleccioná tu departamento</option>
+                    </select>
                   </div>
                   <div class="mb-3">
                     <label for="regCiudad" class="form-label">Ciudad</label>
@@ -257,7 +307,9 @@
                       class="form-select"
                       required
                       disabled
-                    ></select>
+                    >
+                      <option value="">Seleccioná tu ciudad</option>
+                    </select>
                   </div>
                   <button type="submit" class="btn btn-morado w-100">
                     Registrarse
@@ -270,11 +322,34 @@
       </div>
     </div>
 
+    <!-- Modal Registro Exitoso (independiente) -->
+    <div
+      class="modal fade"
+      id="registroExitosoModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+          <h5 class="modal-title mb-3">🎉 Registro exitoso</h5>
+          <p>Tu cuenta fue creada correctamente. Ya podés iniciar sesión.</p>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            id="irLoginBtn"
+          >
+            Ir al login
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/auth.js"></script>
-    <script src="/assets/js/Tutorias.js"></script>
     <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/register.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

@@ -1,8 +1,8 @@
-const API_LISTAR = "http://localhost/Tutoria/listar_tutorias.php";
-const API_CREAR = "http://localhost/Tutoria/crear_tutoria.php";
-const API_EDITAR = "http://localhost/Tutoria/editar_tutoria.php";
-const API_ELIMINAR = "http://localhost/Tutoria/eliminar_tutoria.php";
-const API_MATERIAS = "http://localhost/Tutoria/listar_materias.php";
+const API_LISTAR = "http://localhost/Tutoria/api/listar_tutorias.php";
+const API_CREAR = "http://localhost/Tutoria/api/crear_tutoria.php";
+const API_EDITAR = "http://localhost/Tutoria/api/editar_tutoria.php";
+const API_ELIMINAR = "http://localhost/Tutoria/api/eliminar_tutoria.php";
+const API_MATERIAS = "http://localhost/Tutoria/api/listar_materias.php";
 
 document.addEventListener("DOMContentLoaded", () => {
   cargarTutorias();
