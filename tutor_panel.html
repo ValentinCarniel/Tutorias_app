@@ -12,28 +12,27 @@
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg shadow-sm px-4 fixed-top bg-morado">
-  <a class="navbar-brand fw-bold" href="#">
-    Tuto<span style="color: var(--morado-suave)">®ía</span>
-  </a>
-  <span id="saludoTutor" class="text-white fw-light ms-3"></span>
+    <a class="navbar-brand fw-bold" href="#">
+      Tuto<span style="color: var(--morado-suave)">®ía</span>
+    </a>
+    <span id="saludoTutor" class="text-white fw-light ms-3"></span>
 
-  <div class="ms-auto d-flex align-items-center gap-3">
-    <span id="nombreTutorNavbar" class="text-white fw-light me-2"></span>
-    <i class="bi bi-bell fs-4 text-white" title="Notificaciones"></i>
-    <i class="bi bi-chat-dots fs-4 text-white" title="Mensajes"></i>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <span id="nombreTutorNavbar" class="text-white fw-light me-2"></span>
+      <i class="bi bi-bell fs-4 text-white" title="Notificaciones"></i>
+      <i class="bi bi-chat-dots fs-4 text-white" title="Mensajes"></i>
 
-    <div class="dropdown">
-      <img src="https://via.placeholder.com/40" alt="Perfil" class="rounded-circle" style="width: 40px; height: 40px; cursor: pointer;" data-bs-toggle="dropdown" />
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-        <li><a class="dropdown-item" href="#">Configuración</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
-      </ul>
+      <div class="dropdown">
+        <img src="https://via.placeholder.com/40" alt="Perfil" class="rounded-circle" style="width: 40px; height: 40px; cursor: pointer;" data-bs-toggle="dropdown" />
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+          <li><a class="dropdown-item" href="#">Configuración</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
+  </nav>
 
   <!-- Sidebar -->
   <div class="sidebar">
@@ -42,10 +41,13 @@
     <a href="#"><i class="bi bi-bell me-2"></i> Notificaciones</a>
     <a href="#"><i class="bi bi-journal-code me-2"></i> Mis tutorías</a>
     <a href="#"><i class="bi bi-gear me-2"></i> Configuración</a>
+    <a href="#" onclick="mostrarConexiones()">
+      <i class="bi bi-person-lines-fill me-2"></i> Conexiones recibidas
+    </a>
   </div>
 
   <!-- Contenido principal -->
-  <div class="content">
+  <div id="panel-muro" class="content">
     <h1 class="text-center mb-4">Muro del Tutor</h1>
 
     <!-- Botón para publicar nueva tutoría -->
@@ -57,45 +59,72 @@
     <div id="muroTutorias">
       <!-- Publicaciones se insertan dinámicamente con JS -->
     </div>
-  </div>
 
-<!-- Modal para crear/editar tutoría -->
-<div class="modal fade" id="modalTutoria" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="formTutoria">
-        <div class="modal-header bg-morado text-white">
-          <h5 class="modal-title">Publicar tutoría</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="idTutoria" />
-          
-          <input type="text" id="titulo" class="form-control mb-3" placeholder="Título" required />
-          <textarea id="descripcion" class="form-control mb-3" rows="3" placeholder="Descripción" required></textarea>
-          <input type="number" id="precio" class="form-control mb-3" placeholder="Precio (AR$)" min="0" step="0.01" required />
+    <!-- Modal para crear/editar tutoría -->
+    <div class="modal fade" id="modalTutoria" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="formTutoria">
+            <div class="modal-header bg-morado text-white">
+              <h5 class="modal-title">Publicar tutoría</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="idTutoria" />
+              <input type="text" id="titulo" class="form-control mb-3" placeholder="Título" required />
+              <textarea id="descripcion" class="form-control mb-3" rows="3" placeholder="Descripción" required></textarea>
+              <input type="number" id="precio" class="form-control mb-3" placeholder="Precio (AR$)" min="0" step="0.01" required />
 
-          <!-- Campo de referencias -->
-          <div class="mb-3">
-            <label for="referencias" class="form-label">Referencias (temas clave)</label>
-            <input type="text" class="form-control mb-2" id="ref1" placeholder="Ej: PHP" />
-            <input type="text" class="form-control mb-2" id="ref2" placeholder="Ej: Frontend" />
-            <input type="text" class="form-control mb-2" id="ref3" placeholder="Ej: Programación Web" />
-          </div>
+              <!-- Campo de referencias -->
+              <div class="mb-3">
+                <label for="referencias" class="form-label">Referencias (temas clave)</label>
+                <input type="text" class="form-control mb-2" id="ref1" placeholder="Ej: PHP" />
+                <input type="text" class="form-control mb-2" id="ref2" placeholder="Ej: Frontend" />
+                <input type="text" class="form-control mb-2" id="ref3" placeholder="Ej: Programación Web" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-morado w-100">Publicar</button>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-morado w-100">Publicar</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
 
+  <!-- 🔗 Panel exclusivo de conexiones -->
+  <div id="panel-conexiones" class="content d-none">
+    <h2 class="text-center mb-4">📚 Conexiones recibidas</h2>
+
+    <!-- Pestañas -->
+    <ul class="nav nav-tabs justify-content-center" id="tabsConexiones">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#pendientes">Pendientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#agendadas">Agendadas</a>
+      </li>
+    </ul>
+
+    <!-- Contenido de pestañas -->
+    <div class="tab-content mt-4">
+      <div class="tab-pane fade show active" id="pendientes">
+        <div id="lista-conexiones" class="row">
+          <!-- Cards de conexiones pendientes se insertan con JS -->
+        </div>
+      </div>
+      <div class="tab-pane fade" id="agendadas">
+        <div id="lista-agendadas" class="row">
+          <!-- Cards de clases agendadas se insertan con JS -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
-  <script src="tutor_panel.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <script src="tutor_panel.js"></script>
+  <script src="tutor_panel_conexiones.js"></script>
 </body>
 </html>
