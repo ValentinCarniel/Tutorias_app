@@ -46,13 +46,13 @@ try {
     $stmt->execute([$decoded->sub]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo json_encode([
-        "logged_in" => true,
-        "id_usuario" => $decoded->sub,
-        "email" => $decoded->email,
-        "rol" => $decoded->rol,
-        "nombre" => $user['nombre'] ?? $decoded->email
-    ]);
+   echo json_encode([
+    "logged_in" => true,
+    "id_usuario" => $decoded->sub,
+    "email" => $decoded->email,
+    "rol" => strtolower($decoded->rol), // 👈 Aquí lo convertís a minúsculas
+    "nombre" => $user['nombre'] ?? $decoded->email
+]);
 } catch (Exception $e) {
     echo json_encode([
         "logged_in" => false,

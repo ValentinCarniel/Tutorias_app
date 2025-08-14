@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (nombreExtra) nombreExtra.textContent = nombre;
 
   listarTutorias(); // Ya existente en tu código
+   
 });
 
 const API_POST = "http://localhost/Tutoria/post_tutoria.php"; // ← correcto
@@ -235,3 +236,4 @@ function abrirEdicion(post) {
 }
 
 console.log(localStorage.getItem("nombre"));
+

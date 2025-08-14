@@ -2,7 +2,7 @@ const API_LISTAR = "http://localhost/Tutoria/listar_tutorias.php";
 const API_CREAR = "http://localhost/Tutoria/crear_tutoria.php";
 const API_EDITAR = "http://localhost/Tutoria/editar_tutoria.php";
 const API_ELIMINAR = "http://localhost/Tutoria/eliminar_tutoria.php";
-const API_MATERIAS = "http://localhost/Tutoria/listar_materias.php";
+const API_MATERIAS = 
 
 document.addEventListener("DOMContentLoaded", () => {
   cargarTutorias();

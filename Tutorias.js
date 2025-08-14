@@ -1,8 +1,8 @@
-const API_TUTORIAS = "http://localhost/tutoria/get_alumno_tutoria.php";
 const API_VERIFICAR = "http://localhost/TUTORIA/verificar_token.php";
 const LINK_MERCADOPAGO = "https://www.mercadopago.com.ar/checkout/v1/redirect?preference-id=TEST1234";
 
 let logueado = false;
+let rolUsuario = "";
 
 // 🔐 Mostrar modal de login
 function redirigirALogin() {
@@ -34,8 +34,9 @@ async function verificarSesion() {
 
     if (res.ok && Boolean(data.logged_in) && data.nombre) {
       logueado = true;
+      rolUsuario = (data.rol || "").toLowerCase();
       localStorage.setItem("nombre", data.nombre);
-      localStorage.setItem("rol", data.rol);
+      localStorage.setItem("rol", rolUsuario);
       configurarVistaLogueado(data.nombre);
     } else {
       configurarVistaPublica();
@@ -48,6 +49,7 @@ async function verificarSesion() {
 // 🔓 Vista para visitantes
 function configurarVistaPublica() {
   logueado = false;
+  rolUsuario = "";
   localStorage.removeItem("nombre");
   localStorage.removeItem("rol");
 
@@ -78,6 +80,23 @@ function configurarVistaLogueado(nombre) {
       </div>
     `;
   }
+
+  // 🔗 Activar panel de clases si el usuario es alumno
+  const rol = localStorage.getItem("rol");
+  const linkClases = document.getElementById("linkClases");
+
+  if (linkClases) {
+    if (rol === "alumno") {
+      linkClases.style.display = "block";
+      linkClases.addEventListener("click", (e) => {
+        e.preventDefault();
+        renderVistaAlumno();      // función definida en panel_alumno.js
+        mostrarPanelAlumno();     // función definida en panel_alumno.js
+      });
+    } else {
+      linkClases.style.display = "none";
+    }
+  }
 }
 
 // 🔓 Cerrar sesión
@@ -87,11 +106,10 @@ function cerrarSesion() {
   localStorage.removeItem("nombre");
   configurarVistaPublica();
   mostrarEstadoSesion();
-  window.location.href = "index.html"; // 🔁 Redirige al inicio
+  window.location.href = "index.html";
 }
 
-
-// 🔍 Mostrar estado de sesión en pantalla (footer)
+// 🔍 Mostrar estado de sesión
 function mostrarEstadoSesion() {
   const estado = document.getElementById("estadoSesion");
   const nombre = localStorage.getItem("nombre");
@@ -106,55 +124,22 @@ function mostrarEstadoSesion() {
   }
 }
 
-// ❤️ Me gusta
-function likePost(button) {
-  if (!logueado) return redirigirALogin();
-
-  const isLiked = button.classList.toggle("liked");
-  const heartSpan = button.querySelector(".heart");
-  heartSpan.style.color = isLiked ? "red" : "black";
-
-  button.textContent = isLiked ? "¡Te gusta!" : "Me gusta";
-  button.prepend(heartSpan);
-  button.style.backgroundColor = isLiked ? "var(--morado)" : "";
-  button.style.color = isLiked ? "#fff" : "";
-}
-
-// 🧪 Buscador
-document.getElementById("searchTutores").addEventListener("input", function () {
-  const query = this.value.toLowerCase();
-  const posts = document.querySelectorAll(".post");
-
-  posts.forEach(post => {
-    const contenido = post.textContent.toLowerCase();
-    post.style.display = contenido.includes(query) ? "block" : "none";
-  });
-});
-
-// ✨ Animación
-function animarPosts() {
-  const posts = document.querySelectorAll(".post");
-  posts.forEach((post, i) => {
-    post.style.opacity = "0";
-    post.style.transform = "translateY(20px)";
-    setTimeout(() => {
-      post.style.transition = "all 0.4s ease";
-      post.style.opacity = "1";
-      post.style.transform = "translateY(0)";
-    }, i * 150);
-  });
-}
-
 // 🧱 Crear tutoría
 function crearPost(tutoria, index) {
   const post = document.createElement("div");
-  post.className = "post mb-4 p-4 border rounded bg-white shadow-sm";
+  post.className = "post-tutoria mb-4 p-4 border rounded bg-white shadow-sm";
 
   const collapseID = `comentarios${index}`;
   const etiquetasHTML = tutoria.referencias.map((ref, i) => {
     const clase = i % 2 === 0 ? "bg-morado" : "bg-morado-suave";
     return `<span class="badge ${clase}">#${ref}</span>`;
   }).join(" ");
+
+  const botonConectar = (logueado && rolUsuario === "alumno") ? `
+    <button class="btn btn-outline-success mb-3" onclick="conectarTutoria(${tutoria.id_tutoria})">
+      <i class="bi bi-camera-video"></i> Conectar
+    </button>
+  ` : "";
 
   post.innerHTML = `
     <h5 class="text-morado fw-bold">${tutoria.titulo}</h5>
@@ -164,7 +149,12 @@ function crearPost(tutoria, index) {
     </p>
     <p>${tutoria.descripcion}</p>
     <p class="fw-bold text-success">💰 ${tutoria.precio} ARS</p>
-    <button class="btn btn-morado mb-3" onclick="${logueado ? `window.location.href='${LINK_MERCADOPAGO}'` : `redirigirALogin()`}">Contactar</button>
+
+    <button class="btn btn-morado mb-3" onclick="${logueado ? `window.location.href='${LINK_MERCADOPAGO}'` : `redirigirALogin()`}">
+      Contactar
+    </button>
+
+    ${botonConectar}
 
     <div class="d-flex gap-2 flex-wrap">
       <button class="btn btn-outline-morado btn-like" onclick="likePost(this)">
@@ -191,10 +181,14 @@ function crearPost(tutoria, index) {
   return post;
 }
 
-// 🚀 Cargar tutorías
+// 🚀 Cargar tutorías según rol
 async function cargarTutorias() {
+  const endpoint = rolUsuario === "tutor"
+    ? "http://localhost/tutoria/get_tutor_tutorias.php"
+    : "http://localhost/tutoria/get_alumno_tutoria.php";
+
   try {
-    const response = await fetch(API_TUTORIAS);
+    const response = await fetch(endpoint);
     const data = await response.json();
 
     if (!response.ok || !data.success) {
@@ -215,6 +209,54 @@ async function cargarTutorias() {
 document.addEventListener("DOMContentLoaded", async () => {
   await verificarSesion();
   mostrarEstadoSesion();
-  await cargarTutorias();
+  await cargarTutorias(); // 👈 siempre carga el muro al iniciar
+
+  // 🔍 Activar búsqueda de tutorías
+  const buscador = document.getElementById("searchTutores");
+  if (buscador) {
+    buscador.addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const posts = document.querySelectorAll(".post-tutoria");
+
+      posts.forEach(post => {
+        const texto = post.textContent.toLowerCase();
+        post.style.display = texto.includes(query) ? "block" : "none";
+      });
+    });
+  }
 });
 
+// 🔗 Conectar alumno con tutoría
+function conectarTutoria(tutoriaId) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    Swal.fire("Sesión no iniciada", "Por favor iniciá sesión para conectar", "warning");
+    return;
+  }
+
+  fetch("http://localhost/tutoria/connect_tutoria.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`    },
+    body: JSON.stringify({ tutoria_id: tutoriaId })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      Swal.fire("¡Conectado!", data.message, "success");
+      const btn = document.querySelector(`button[onclick="conectarTutoria(${tutoriaId})"]`);
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = "Ya conectado";
+      }
+    } else {
+      Swal.fire("Ups...", data.message, "error");
+    }
+  })
+  .catch(err => {
+    console.error("Error al conectar:", err);
+    Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+  });
+}
+   
