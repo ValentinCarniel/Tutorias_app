@@ -47,7 +47,7 @@ try {
   }
 
   // 🔍 Buscar tutor asociado
-  $stmt = $conn->prepare("SELECT id_tutor FROM TUTORIA WHERE id_tutoria = ?");
+  $stmt = $conn->prepare("SELECT id_tutor FROM TUTORIAS WHERE id_tutoria = ?");
   $stmt->execute([$tutoria_id]);
   $tutor = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -58,14 +58,14 @@ try {
   $tutor_id = $tutor['id_tutor'];
 
   // 🔁 Verificar si ya existe la conexión
-  $stmt = $conn->prepare("SELECT COUNT(*) FROM tutorias_contactadas WHERE alumno_id = ? AND tutoria_id = ?");
+  $stmt = $conn->prepare("SELECT COUNT(*) FROM TUTORIAS_CONTACTADAS WHERE alumno_id = ? AND tutoria_id = ?");
   $stmt->execute([$alumno_id, $tutoria_id]);
   if ($stmt->fetchColumn() > 0) {
     throw new Exception("Ya te conectaste con esta tutoría.");
   }
 
   // ✅ Insertar nueva conexión
-  $stmt = $conn->prepare("INSERT INTO tutorias_contactadas (alumno_id, tutor_id, tutoria_id, fecha_conexion) VALUES (?, ?, ?, NOW())");
+  $stmt = $conn->prepare("INSERT INTO TUTORIAS_CONTACTADAS (alumno_id, tutor_id, tutoria_id, fecha_conexion) VALUES (?, ?, ?, NOW())");
   $stmt->execute([$alumno_id, $tutor_id, $tutoria_id]);
 
   echo json_encode([

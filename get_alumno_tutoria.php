@@ -13,8 +13,8 @@ try {
       t.precio,
       t.fecha_publicacion,
       CONCAT(u.nombre, ' ', u.apellido) AS nombre_tutor
-    FROM TUTORIA t
-    JOIN USUARIO u ON u.id_usuario = t.id_tutor
+    FROM TUTORIAS t
+    JOIN USUARIOS u ON u.id_usuario = t.id_tutor
     ORDER BY t.fecha_publicacion DESC
   ");
   $stmt->execute();
@@ -23,7 +23,7 @@ try {
   foreach ($tutorias as &$tutoria) {
     $refStmt = $conn->prepare("
       SELECT texto 
-      FROM REFERENCIA 
+      FROM REFERENCIAS 
       WHERE id_tutoria = :id_tutoria
     ");
     $refStmt->execute([':id_tutoria' => $tutoria['id_tutoria']]);

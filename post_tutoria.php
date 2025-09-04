@@ -41,7 +41,7 @@ try {
     throw new Exception("Faltan campos obligatorios.");
   }
 
-  $stmt = $conn->prepare("INSERT INTO TUTORIA (id_tutor, titulo, descripcion, precio, fecha_publicacion)
+  $stmt = $conn->prepare("INSERT INTO TUTORIAS (id_tutor, titulo, descripcion, precio, fecha_publicacion)
                           VALUES (:id_tutor, :titulo, :descripcion, :precio, NOW())");
   $stmt->execute([
     ':id_tutor' => $id_tutor,
@@ -52,7 +52,7 @@ try {
 
   $id_tutoria = $conn->lastInsertId();
 
-  $rStmt = $conn->prepare("INSERT INTO REFERENCIA (id_tutoria, texto) VALUES (:id_tutoria, :texto)");
+  $rStmt = $conn->prepare("INSERT INTO REFERENCIAS (id_tutoria, texto) VALUES (:id_tutoria, :texto)");
   foreach ($referencias as $ref) {
     $ref = trim($ref);
     if ($ref !== '') {

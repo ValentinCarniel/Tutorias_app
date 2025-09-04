@@ -38,7 +38,7 @@ $ciudad = $data['ciudad'];
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
 try {
-  $stmt = $conn->prepare('INSERT INTO USUARIO (nombre, apellido, email, password, fecha_nacimiento, rol, provincia, departamento, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  $stmt = $conn->prepare('INSERT INTO USUARIOS (nombre, apellido, email, password, fecha_nacimiento, rol, provincia, departamento, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
   $stmt->execute([$nombre, $apellido, $email, $passwordHash, $fecha_nacimiento, $rol, $provincia, $departamento, $ciudad]);
 
   echo json_encode(['success' => true, 'message' => 'Usuario registrado correctamente.']);

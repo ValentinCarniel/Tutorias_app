@@ -29,14 +29,14 @@ try {
   $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
   $id_tutor = $decoded->sub;
 
-  $stmt = $conn->prepare("SELECT * FROM TUTORIA WHERE id_tutor = ? ORDER BY fecha_publicacion DESC");
+  $stmt = $conn->prepare("SELECT * FROM TUTORIAS WHERE id_tutor = ? ORDER BY fecha_publicacion DESC");
   $stmt->execute([$id_tutor]);
   $tutorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   $resultado = [];
 
   foreach ($tutorias as $t) {
-    $refStmt = $conn->prepare("SELECT texto FROM REFERENCIA WHERE id_tutoria = ?");
+    $refStmt = $conn->prepare("SELECT texto FROM REFERENCIAS WHERE id_tutoria = ?");
     $refStmt->execute([$t['id_tutoria']]);
     $refs = $refStmt->fetchAll(PDO::FETCH_COLUMN);
 
