@@ -24,7 +24,7 @@ try {
 
   // ⏱️ Marcar clases vencidas como finalizadas
   $finalizar = $conn->prepare("
-    UPDATE clases_programadas
+    UPDATE  CLASES_PROGRAMADAS
     SET estado = 'finalizada'
     WHERE fecha_hora < NOW() AND estado = 'pendiente' AND alumno_id = ?
   ");
@@ -32,11 +32,11 @@ try {
 
   // 🔁 Volver a poner la conexión como "pendiente" si la clase ya finalizó
   $reset = $conn->prepare("
-    UPDATE tutorias_contactadas
+    UPDATE TUTORIAS_CONTACTADAS
     SET estado = 'pendiente'
     WHERE id IN (
       SELECT contacto_id
-      FROM clases_programadas
+      FROM CLASES_PROGRAMADAS
       WHERE fecha_hora < NOW() AND estado = 'finalizada' AND alumno_id = ?
     )
   ");
@@ -52,11 +52,11 @@ try {
       u.nombre AS tutor_nombre,
       cp.fecha_hora,
       cp.sala_jitsi
-    FROM tutorias_contactadas tc
-    JOIN TUTORIA t ON tc.tutoria_id = t.id_tutoria
-    JOIN USUARIO u ON tc.tutor_id = u.id_usuario
-    LEFT JOIN clases_programadas cp ON cp.contacto_id = tc.id AND cp.estado = 'pendiente'
-WHERE tc.alumno_id = ? AND cp.id IS NULL
+    FROM TUTORIAS_CONTACTADAS tc
+    JOIN TUTORIAS t ON tc.tutoria_id = t.id_tutoria
+    JOIN USUARIOS u ON tc.tutor_id = u.id_usuario
+    LEFT JOIN CLASES_PROGRAMADAS cp ON cp.contacto_id = tc.id AND cp.estado = 'pendiente'
+    WHERE tc.alumno_id = ? AND cp.id IS NULL
     ORDER BY tc.fecha_conexion DESC
   ");
   $stmt->execute([$alumno_id]);

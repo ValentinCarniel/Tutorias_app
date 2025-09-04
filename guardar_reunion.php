@@ -55,7 +55,7 @@ try {
 
   // 🔍 Validar conexión previa
   $stmt = $conn->prepare("
-    SELECT id FROM tutorias_contactadas
+    SELECT id FROM TUTORIAS_CONTACTADAS
     WHERE tutor_id = ? AND alumno_id = ? AND tutoria_id = ?
     LIMIT 1
   ");
@@ -71,7 +71,7 @@ try {
   // 🔁 Verificar si ya existe una clase pendiente para ese contacto
   $stmt = $conn->prepare("
     SELECT COUNT(*) 
-    FROM clases_programadas 
+    FROM CLASES_PROGRAMADAS 
     WHERE contacto_id = ? AND estado = 'pendiente'
   ");
   $stmt->execute([$contacto_id]);
@@ -84,7 +84,7 @@ try {
 
   // ✅ Insertar clase programada
   $stmt = $conn->prepare("
-    INSERT INTO clases_programadas (
+    INSERT INTO CLASES_PROGRAMADAS (
       contacto_id, tutor_id, alumno_id, tutoria_id,
       fecha_hora, fecha_clase, sala_jitsi, estado
     ) VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente')
@@ -96,7 +96,7 @@ try {
 
   // 🔄 Actualizar estado de la conexión a "agendada"
   $update = $conn->prepare("
-    UPDATE tutorias_contactadas
+    UPDATE TUTORIAS_CONTACTADAS
     SET estado = 'agendada'
     WHERE id = ?
   ");

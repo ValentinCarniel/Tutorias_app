@@ -42,7 +42,7 @@ try {
     $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
 
     require_once 'conn.php';
-    $stmt = $conn->prepare('SELECT nombre FROM USUARIO WHERE id_usuario = ? LIMIT 1');
+    $stmt = $conn->prepare('SELECT nombre FROM USUARIOS WHERE id_usuario = ? LIMIT 1');
     $stmt->execute([$decoded->sub]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

@@ -40,10 +40,10 @@ $stmt = $conn->prepare("
     a.nombre AS alumno_nombre,
     t.titulo AS tutoria_titulo,
     tc.fecha_conexion
-  FROM tutorias_contactadas tc
-  JOIN USUARIO a ON tc.alumno_id = a.id_usuario
-  JOIN TUTORIA t ON tc.tutoria_id = t.id_tutoria
-  LEFT JOIN clases_programadas cp ON cp.contacto_id = tc.id
+  FROM TUTORIAS_CONTACTADAS tc
+  JOIN USUARIOS a ON tc.alumno_id = a.id_usuario
+  JOIN TUTORIAS t ON tc.tutoria_id = t.id_tutoria
+  LEFT JOIN CLASES_PROGRAMADAS cp ON cp.contacto_id = tc.id
   WHERE tc.tutor_id = ? AND cp.id IS NULL
   ORDER BY tc.fecha_conexion DESC
 ");

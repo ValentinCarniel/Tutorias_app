@@ -24,14 +24,14 @@ try {
   if (!$id_tutoria) throw new Exception("ID de tutoría faltante.");
 
   // Validar que la tutoría pertenece al tutor
-  $check = $conn->prepare("SELECT id_tutor FROM TUTORIA WHERE id_tutoria = ?");
+  $check = $conn->prepare("SELECT id_tutor FROM TUTORIAS WHERE id_tutoria = ?");
   $check->execute([$id_tutoria]);
   $owner = $check->fetchColumn();
   if ($owner != $id_tutor) throw new Exception("No podés eliminar tutorías de otro usuario.");
 
   // Eliminar referencias + tutoría
-  $conn->prepare("DELETE FROM REFERENCIA WHERE id_tutoria = ?")->execute([$id_tutoria]);
-  $conn->prepare("DELETE FROM TUTORIA WHERE id_tutoria = ?")->execute([$id_tutoria]);
+  $conn->prepare("DELETE FROM REFERENCIAS WHERE id_tutoria = ?")->execute([$id_tutoria]);
+  $conn->prepare("DELETE FROM TUTORIAS WHERE id_tutoria = ?")->execute([$id_tutoria]);
 
   echo json_encode(["success" => true, "message" => "Tutoría eliminada."]);
 

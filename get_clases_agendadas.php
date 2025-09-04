@@ -24,7 +24,7 @@ try {
 
   // ⏱️ Marcar como finalizadas las clases que ya pasaron
   $actualizar = $conn->prepare("
-    UPDATE clases_programadas
+    UPDATE CLASES_PROGRAMADAS
     SET estado = 'finalizada'
     WHERE fecha_hora < NOW() AND estado = 'pendiente' AND tutor_id = ?
   ");
@@ -32,11 +32,11 @@ try {
 
   // 🔁 Volver a poner la conexión como "pendiente" si la clase ya finalizó
   $reset = $conn->prepare("
-    UPDATE tutorias_contactadas
+    UPDATE TUTORIAS_CONTACTADAS
     SET estado = 'pendiente'
     WHERE id IN (
       SELECT contacto_id
-      FROM clases_programadas
+      FROM  CLASES_PROGRAMADAS
       WHERE fecha_hora < NOW() AND estado = 'finalizada' AND tutor_id = ?
     )
   ");
@@ -49,9 +49,9 @@ try {
       cp.sala_jitsi,
       a.nombre AS alumno_nombre,
       t.titulo AS tutoria_titulo
-    FROM clases_programadas cp
-    JOIN USUARIO a ON cp.alumno_id = a.id_usuario
-    JOIN TUTORIA t ON cp.tutoria_id = t.id_tutoria
+    FROM CLASES_PROGRAMADAS cp
+    JOIN USUARIOS a ON cp.alumno_id = a.id_usuario
+    JOIN TUTORIAS t ON cp.tutoria_id = t.id_tutoria
     WHERE cp.tutor_id = ?
     ORDER BY cp.fecha_hora DESC
   ");

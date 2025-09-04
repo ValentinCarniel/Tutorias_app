@@ -29,18 +29,18 @@ try {
   if (!$id_tutoria || !$descripcion || !$precio) throw new Exception("Faltan campos.");
 
   // Verificar autor
-  $check = $conn->prepare("SELECT id_tutor FROM TUTORIA WHERE id_tutoria = ?");
+  $check = $conn->prepare("SELECT id_tutor FROM TUTORIAS WHERE id_tutoria = ?");
   $check->execute([$id_tutoria]);
   $owner = $check->fetchColumn();
   if ($owner != $id_tutor) throw new Exception("No podés editar tutorías de otro usuario.");
 
   // Actualizar tutoría
-  $stmt = $conn->prepare("UPDATE TUTORIA SET titulo = ?, descripcion = ?, precio = ? WHERE id_tutoria = ?");
+  $stmt = $conn->prepare("UPDATE TUTORIAS SET titulo = ?, descripcion = ?, precio = ? WHERE id_tutoria = ?");
   $stmt->execute([$titulo, $descripcion, $precio, $id_tutoria]);
 
   // Limpiar y actualizar referencias
-  $conn->prepare("DELETE FROM REFERENCIA WHERE id_tutoria = ?")->execute([$id_tutoria]);
-  $rStmt = $conn->prepare("INSERT INTO REFERENCIA (id_tutoria, texto) VALUES (?, ?)");
+  $conn->prepare("DELETE FROM REFERENCIAS WHERE id_tutoria = ?")->execute([$id_tutoria]);
+  $rStmt = $conn->prepare("INSERT INTO REFERENCIAS (id_tutoria, texto) VALUES (?, ?)");
   foreach ($referencias as $ref) {
     $ref = trim($ref);
     if ($ref !== '') $rStmt->execute([$id_tutoria, $ref]);

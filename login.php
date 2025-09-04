@@ -32,7 +32,7 @@ $email = trim($data['email']);
 $password = $data['password'];
 
 try {
-    $stmt = $conn->prepare('SELECT * FROM USUARIO WHERE email = ? LIMIT 1');
+    $stmt = $conn->prepare('SELECT * FROM USUARIOS WHERE email = ? LIMIT 1');
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
